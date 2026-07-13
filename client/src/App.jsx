@@ -1,51 +1,86 @@
-import "./App.css";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+import Kanban from "./pages/Kanban";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Dashboard from "./pages/Dashboard";
+import ProtectedRoute from "./components/ProtectedRoute";
+import Projects from "./pages/Projects";
+import TaskDetails from "./pages/TaskDetails";
+import Team from "./pages/Team";
+import Profile from "./pages/Profile";
+import Settings from "./pages/Settings";
 function App() {
   return (
-    <div className="container">
-      <header>
-        <h1>TaskMatrix</h1>
-        <p className="tagline">Plan • Collaborate • Deliver</p>
-      </header>
+    <BrowserRouter>
+      <Routes>
 
-      <section className="card">
-        <h2>About the Project</h2>
-        <p>
-          TaskMatrix is a MERN Stack based project management application
-          developed as the capstone project for the ProDesk Internship.
-          It helps software teams manage projects, assign tasks, track
-          progress, and collaborate efficiently.
-        </p>
-      </section>
+        <Route path="/" element={<Login />} />
 
-      <section className="card">
-        <h2>Technology Stack</h2>
-        <ul>
-          <li>React.js</li>
-          <li>Tailwind CSS</li>
-          <li>Node.js</li>
-          <li>Express.js</li>
-          <li>MongoDB Atlas</li>
-          <li>JWT Authentication</li>
-        </ul>
-      </section>
+        <Route path="/register" element={<Register />} />
 
-      <section className="card">
-        <h2>Planned Features</h2>
-        <ul>
-          <li>User Authentication</li>
-          <li>Role-Based Access Control</li>
-          <li>Dashboard</li>
-          <li>Kanban Board</li>
-          <li>Task Management</li>
-          <li>Activity Logs</li>
-        </ul>
-      </section>
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+<Route
+  path="/kanban"
+  element={
+    <ProtectedRoute>
+      <Kanban />
+    </ProtectedRoute>
+  }
+/>
+<Route
+  path="/projects"
+  element={
+    <ProtectedRoute>
+      <Projects />
+    </ProtectedRoute>
+  }
+/>
 
-      <footer>
-        <p>Developed by Deepthi Gajja Gouni</p>
-      </footer>
-    </div>
+<Route
+  path="/task-details"
+  element={
+    <ProtectedRoute>
+      <TaskDetails />
+    </ProtectedRoute>
+  }
+/>
+
+<Route
+  path="/team"
+  element={
+    <ProtectedRoute>
+      <Team />
+    </ProtectedRoute>
+  }
+/>
+
+<Route
+  path="/profile"
+  element={
+    <ProtectedRoute>
+      <Profile />
+    </ProtectedRoute>
+  }
+/>
+
+<Route
+  path="/settings"
+  element={
+    <ProtectedRoute>
+      <Settings />
+    </ProtectedRoute>
+  }
+/>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
