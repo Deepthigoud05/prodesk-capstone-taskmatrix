@@ -248,7 +248,7 @@ function Kanban() {
         </div>
 
         <div className="grid grid-cols-3 gap-8 mt-10">
-                    {/* ================= TODO ================= */}
+                    {/* TODO  */}
 
           <div className="bg-[#F8F9FC] rounded-3xl p-6 shadow-md">
 
@@ -368,7 +368,7 @@ function Kanban() {
             </div>
 
           </div>
-                    {/* ================= IN PROGRESS ================= */}
+                    {/*  IN PROGRESS  */}
 
           <div className="bg-[#F8F9FC] rounded-3xl p-6 shadow-md">
 
@@ -517,7 +517,7 @@ function Kanban() {
             </div>
 
           </div>
-                    {/* ================= DONE ================= */}
+                    {/* DONE */}
 
           <div className="bg-[#F8F9FC] rounded-3xl p-6 shadow-md">
 
