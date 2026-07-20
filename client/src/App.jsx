@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
+import Payment from "./pages/Payment";
+import Success from "./pages/Success";
 import Kanban from "./pages/Kanban";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -14,7 +15,8 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-
+<Route path="/payment" element={<Payment />} />
+<Route path="/success" element={<Success />} />
         <Route path="/" element={<Login />} />
 
         <Route path="/register" element={<Register />} />

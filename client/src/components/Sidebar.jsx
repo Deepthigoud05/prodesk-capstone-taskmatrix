@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   MdDashboard,
   MdViewKanban,
@@ -7,12 +8,15 @@ import {
   MdSettings,
   MdPerson,
   MdLogout,
+  MdMenu,
+  MdClose,
 } from "react-icons/md";
 
 import { Link, useLocation } from "react-router-dom";
 
 function Sidebar() {
   const location = useLocation();
+  const [open, setOpen] = useState(false);
 
   const menu = [
     {
@@ -53,57 +57,106 @@ function Sidebar() {
   ];
 
   return (
-    <aside className="w-64 min-h-screen bg-[#1F2937] text-white flex flex-col">
+    <>
+      {/* Mobile Menu Button */}
+      <button
+        onClick={() => setOpen(true)}
+        className="lg:hidden fixed top-5 left-5 z-50 bg-[#5B5CEB] text-white p-3 rounded-xl shadow-lg"
+      >
+        <MdMenu size={24} />
+      </button>
 
-      {/* Logo */}
-      <div className="px-8 py-8">
-        <h1 className="text-3xl font-bold tracking-wide">
-          TaskMatrix
-        </h1>
-      </div>
+      {/* Overlay */}
+      {open && (
+        <div
+          className="fixed inset-0 bg-black/40 z-40 lg:hidden"
+          onClick={() => setOpen(false)}
+        />
+      )}
 
-      {/* Menu */}
-      <div className="flex-1 mt-6">
+      {/* Sidebar */}
+      <aside
+        className={`
+          fixed lg:static
+          top-0 left-0
+          z-50
+          w-64
+          h-screen
+          bg-[#1F2937]
+          text-white
+          flex
+          flex-col
+          transition-transform
+          duration-300
+          ${
+            open
+              ? "translate-x-0"
+              : "-translate-x-full lg:translate-x-0"
+          }
+        `}
+      >
+        {/* Header */}
+        <div className="flex items-center justify-between px-8 py-8 border-b border-gray-700">
 
-        {menu.map((item) => (
+          <h1 className="text-3xl font-bold tracking-wide">
+            TaskMatrix
+          </h1>
 
-          <Link
-            key={item.title}
-            to={item.path}
-            className={`flex items-center gap-4 px-8 py-4 text-lg transition rounded-r-full mr-4 ${
-              location.pathname === item.path
-                ? "bg-[#5B5CEB] text-white"
-                : "hover:bg-[#374151]"
-            }`}
+          <button
+            onClick={() => setOpen(false)}
+            className="lg:hidden"
           >
-            {item.icon}
-            <span>{item.title}</span>
-          </Link>
+            <MdClose size={28} />
+          </button>
 
-        ))}
+        </div>
 
-      </div>
+        {/* Menu */}
+        <div className="flex-1 mt-6 overflow-y-auto">
 
-      {/* Logout */}
-      <div className="border-t border-gray-700">
+          {menu.map((item) => (
 
-        <button
-          onClick={() => {
-       localStorage.removeItem("token");
-localStorage.removeItem("user");
+            <Link
+              key={item.title}
+              to={item.path}
+              onClick={() => setOpen(false)}
+              className={`flex items-center gap-4 px-8 py-4 text-lg transition-all duration-200 rounded-r-full mr-4 ${
+                location.pathname === item.path
+                  ? "bg-[#5B5CEB] text-white"
+                  : "hover:bg-[#374151]"
+              }`}
+            >
+              {item.icon}
 
-window.location.href = "/";
-            window.location.href = "/";
-          }}
-          className="w-full flex items-center gap-4 px-8 py-6 text-red-300 hover:text-red-400 transition"
-        >
-          <MdLogout size={22} />
-          Logout
-        </button>
+              <span>{item.title}</span>
 
-      </div>
+            </Link>
 
-    </aside>
+          ))}
+
+        </div>
+
+        {/* Logout */}
+        <div className="border-t border-gray-700">
+
+          <button
+            onClick={() => {
+              localStorage.removeItem("token");
+              localStorage.removeItem("user");
+              window.location.href = "/";
+            }}
+            className="w-full flex items-center gap-4 px-8 py-6 text-red-300 hover:bg-[#374151] hover:text-red-400 transition"
+          >
+            <MdLogout size={22} />
+
+            Logout
+
+          </button>
+
+        </div>
+
+      </aside>
+    </>
   );
 }
 

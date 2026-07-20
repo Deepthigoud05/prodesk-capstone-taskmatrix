@@ -152,37 +152,43 @@ function Kanban() {
 
   const deleteTask = async (id) => {
 
-    const confirmDelete = window.confirm(
-      "Delete this task?"
+  const confirmDelete = window.confirm("Delete this task?");
+
+  if (!confirmDelete) return;
+
+  // Store current tasks in case something goes wrong
+  const previousTasks = tasks;
+
+  // Remove task from UI immediately
+  setTasks((prevTasks) =>
+    prevTasks.filter((task) => task._id !== id)
+  );
+
+  try {
+
+    const token = localStorage.getItem("token");
+
+    await axios.delete(
+      `http://localhost:5000/api/tasks/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
     );
 
-    if (!confirmDelete) return;
+  } catch (error) {
 
-    try {
+    console.error(error);
 
-      const token = localStorage.getItem("token");
+    // Restore tasks if delete fails
+    setTasks(previousTasks);
 
-      await axios.delete(
-        `http://localhost:5000/api/tasks/${id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+    alert("Unable to delete task.");
 
-      fetchTasks();
+  }
 
-    } catch (error) {
-
-      console.error(error);
-
-      alert("Unable to delete task.");
-
-    }
-
-  };
-
+};
   const todoTasks = tasks.filter(
     (task) => task.status === "Todo"
   );
@@ -201,15 +207,14 @@ function Kanban() {
 
       <Sidebar />
 
-      <main className="flex-1 px-12 py-8 overflow-y-auto">
-
+      <main className="flex-1 overflow-y-auto pt-20 lg:pt-0 p-4 sm:p-6 lg:p-8">
         <Header />
 
-        <div className="flex justify-between items-center mt-10">
+        <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-6 mt-8">
 
           <div>
 
-            <h1 className="text-3xl font-bold text-[#5B6B88]">
+            <h1 className="text-2xl md:text-3xl font-bold text-[#5B6B88]">
               Kanban Board
             </h1>
 
@@ -236,7 +241,7 @@ function Kanban() {
               setShowModal(true);
 
             }}
-            className="flex items-center gap-2 bg-[#5B5CEB] text-white px-6 py-3 rounded-xl shadow hover:bg-[#4A4BD8] transition"
+            className="w-full md:w-auto flex justify-center items-center gap-2 bg-[#5B5CEB] text-white px-6 py-3 rounded-xl shadow hover:bg-[#4A4BD8] transition"
           >
 
             <MdAdd size={22} />
@@ -247,7 +252,7 @@ function Kanban() {
 
         </div>
 
-        <div className="grid grid-cols-3 gap-8 mt-10">
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 mt-10">
                     {/* TODO  */}
 
           <div className="bg-[#F8F9FC] rounded-3xl p-6 shadow-md">
@@ -289,7 +294,7 @@ function Kanban() {
 
                   <div
                     key={task._id}
-                    className="bg-white rounded-2xl shadow-sm p-5"
+                    className="bg-white rounded-2xl shadow-sm p-4 md:p-5 transition hover:shadow-md"
                   >
 
                     <span
@@ -307,7 +312,7 @@ function Kanban() {
 
                     </span>
 
-                    <h3 className="mt-4 text-lg font-bold text-gray-700">
+                    <h3 className="mt-4 text-base md:text-lg font-bold text-gray-700 break-words">
 
                       {task.title}
 
@@ -634,7 +639,7 @@ function Kanban() {
 
         <div className="fixed inset-0 bg-black/40 flex justify-center items-center z-50">
 
-          <div className="bg-white w-[650px] rounded-3xl shadow-2xl p-8">
+          <div className="bg-white w-[95%] max-w-2xl rounded-3xl shadow-2xl p-6 md:p-8">
 
             <h2 className="text-3xl font-bold text-[#5B5CEB] mb-8">
 
@@ -676,7 +681,7 @@ function Kanban() {
 
               </div>
 
-              <div className="grid grid-cols-2 gap-5">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
 
                 <div>
 
@@ -762,7 +767,7 @@ function Kanban() {
 
             </div>
 
-            <div className="flex justify-end gap-4 mt-8">
+            <div className="flex flex-col-reverse sm:flex-row justify-end gap-4 mt-8">
 
               <button
                 onClick={() => {

@@ -10,11 +10,11 @@ import taskRoutes from "./routes/taskRoutes.js";
 dotenv.config();
 
 const app = express();
-
+const paymentRoutes = require("./routes/paymentRoutes");
 // Middleware
 app.use(cors());
 app.use(express.json());
-
+app.use("/api/payment", paymentRoutes);
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/projects", projectRoutes);

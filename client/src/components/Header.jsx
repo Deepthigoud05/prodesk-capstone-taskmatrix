@@ -3,50 +3,66 @@ import { FaUserCircle } from "react-icons/fa";
 
 function Header() {
   return (
-    <div className="w-full h-20 flex justify-between items-center">
+    <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 w-full">
 
       {/* Search */}
 
-      <div className="w-[620px] h-16 bg-white rounded-md shadow-sm flex items-center px-8">
+      <div className="w-full md:flex-1">
 
-        <FiSearch
-          size={28}
-          className="text-gray-500"
-        />
+        <div className="bg-white rounded-2xl shadow-sm flex items-center px-5 py-4">
 
-        <input
-          type="text"
-          placeholder="Search Project..."
-          className="ml-4 w-full outline-none text-[20px] font-semibold text-slate-500 placeholder:text-slate-500"
-        />
+          <FiSearch
+            size={22}
+            className="text-gray-500 flex-shrink-0"
+          />
+
+          <input
+            type="text"
+            placeholder="Search Project..."
+            className="ml-4 w-full outline-none text-base md:text-lg font-medium text-slate-600 placeholder:text-slate-400"
+          />
+
+        </div>
 
       </div>
 
       {/* Right Side */}
 
-      <div className="flex items-center gap-8">
+      <div className="flex items-center justify-end gap-5">
 
-        <button>
+        {/* Notification */}
+
+        <button className="relative p-3 bg-white rounded-2xl shadow-sm hover:bg-gray-100 transition">
 
           <FiBell
-            size={28}
+            size={22}
             className="text-yellow-500"
           />
 
+          <span className="absolute top-2 right-2 w-2.5 h-2.5 rounded-full bg-red-500"></span>
+
         </button>
 
-        <div className="flex items-center gap-3">
+        {/* Profile */}
+
+        <div className="flex items-center gap-3 bg-white rounded-2xl shadow-sm px-4 py-2">
 
           <FaUserCircle
-            size={32}
+            size={34}
             className="text-slate-500"
           />
 
-          <span className="text-[20px] font-bold text-slate-500">
+          <div className="hidden sm:block">
 
-            Deepthi
+            <p className="text-sm text-gray-400">
+              Welcome
+            </p>
 
-          </span>
+            <h3 className="font-semibold text-slate-700">
+              Deepthi
+            </h3>
+
+          </div>
 
         </div>
 
