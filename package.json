@@ -9,7 +9,7 @@
     "dev": "nodemon server.js"
   },
   "repository": {
-    "type": "git",
+    "type": "module",
     "url": "git+https://github.com/Deepthigoud05/prodesk-capstone-taskmatrix.git"
   },
   "keywords": [],
