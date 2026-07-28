@@ -8,12 +8,17 @@ export const createProject = async (req, res) => {
       createdBy: req.user.id,
     });
 
-    res.status(201).json(project);
+    return res.status(201).json({
+      success: true,
+      message: "Project created successfully",
+      data: project,
+    });
 
   } catch (error) {
 
-    res.status(500).json({
-      message: error.message,
+    return res.status(500).json({
+      success: false,
+      message: "Internal Server Error",
     });
 
   }
@@ -28,12 +33,16 @@ export const getProjects = async (req, res) => {
       createdBy: req.user.id,
     });
 
-    res.json(projects);
+    return res.status(200).json({
+      success: true,
+      data: projects,
+    });
 
   } catch (error) {
 
-    res.status(500).json({
-      message: error.message,
+    return res.status(500).json({
+      success: false,
+      message: "Internal Server Error",
     });
 
   }
@@ -45,18 +54,37 @@ export const updateProject = async (req, res) => {
 
   try {
 
-    const project = await Project.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      { new: true }
-    );
+    const project = await Project.findById(req.params.id);
 
-    res.json(project);
+    if (!project) {
+      return res.status(404).json({
+        success: false,
+        message: "Project not found",
+      });
+    }
+
+    if (project.createdBy.toString() !== req.user.id) {
+      return res.status(403).json({
+        success: false,
+        message: "Access denied",
+      });
+    }
+
+    Object.assign(project, req.body);
+
+    await project.save();
+
+    return res.status(200).json({
+      success: true,
+      message: "Project updated successfully",
+      data: project,
+    });
 
   } catch (error) {
 
-    res.status(500).json({
-      message: error.message,
+    return res.status(500).json({
+      success: false,
+      message: "Internal Server Error",
     });
 
   }
@@ -68,16 +96,34 @@ export const deleteProject = async (req, res) => {
 
   try {
 
-    await Project.findByIdAndDelete(req.params.id);
+    const project = await Project.findById(req.params.id);
 
-    res.json({
-      message: "Project Deleted",
+    if (!project) {
+      return res.status(404).json({
+        success: false,
+        message: "Project not found",
+      });
+    }
+
+    if (project.createdBy.toString() !== req.user.id) {
+      return res.status(403).json({
+        success: false,
+        message: "Access denied",
+      });
+    }
+
+    await project.deleteOne();
+
+    return res.status(200).json({
+      success: true,
+      message: "Project deleted successfully",
     });
 
   } catch (error) {
 
-    res.status(500).json({
-      message: error.message,
+    return res.status(500).json({
+      success: false,
+      message: "Internal Server Error",
     });
 
   }

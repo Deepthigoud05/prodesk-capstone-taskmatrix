@@ -1,5 +1,5 @@
 import express from "express";
-import authMiddleware from "../middleware/authMiddleware.js";
+
 import {
   createProject,
   getProjects,
@@ -7,14 +7,18 @@ import {
   deleteProject,
 } from "../controllers/projectController.js";
 
+import protect from "../middleware/authMiddleware.js";
+import validate from "../middleware/validate.js";
+import { projectSchema } from "../validation/projectValidation.js";
+
 const router = express.Router();
 
-router.post("/", authMiddleware, createProject);
+router.get("/", protect, getProjects);
 
-router.get("/", authMiddleware, getProjects);
+router.post("/", protect, validate(projectSchema), createProject);
 
-router.put("/:id", authMiddleware, updateProject);
+router.put("/:id", protect, validate(projectSchema), updateProject);
 
-router.delete("/:id", authMiddleware, deleteProject);
+router.delete("/:id", protect, deleteProject);
 
 export default router;

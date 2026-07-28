@@ -1,3 +1,6 @@
+import dns from "node:dns";
+
+dns.setServers(["8.8.8.8", "1.1.1.1"]);
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
@@ -6,20 +9,20 @@ import dotenv from "dotenv";
 import authRoutes from "./routes/authRoutes.js";
 import projectRoutes from "./routes/projectRoutes.js";
 import taskRoutes from "./routes/taskRoutes.js";
-
+import aiRoutes from "./routes/aiRoutes.js";
 dotenv.config();
 
 const app = express();
-import paymentRoutes from "./routes/paymentRoutes.js";
+//import paymentRoutes from "./routes/paymentRoutes.js";
 // Middleware
 app.use(cors());
 app.use(express.json());
-app.use("/api/payment", paymentRoutes);
+//app.use("/api/payment", paymentRoutes);
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/projects", projectRoutes);
 app.use("/api/tasks", taskRoutes);
-
+app.use("/api/ai", aiRoutes);
 // Test Route
 app.get("/", (req, res) => {
   res.send("TaskMatrix API is running...");
@@ -28,8 +31,13 @@ app.get("/", (req, res) => {
 // MongoDB Connection
 mongoose
   .connect(process.env.MONGO_URI)
-  .then(() => console.log("✅ MongoDB Connected"))
-  .catch((err) => console.error("❌ MongoDB Error:", err));
+  .then(() => {
+    console.log("✅ MongoDB Connected");
+  })
+  .catch((err) => {
+    console.error("❌ MongoDB Error:", err.message);
+    process.exit(1);
+  });
 
 // Server
 const PORT = process.env.PORT || 5000;
