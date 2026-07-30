@@ -49,7 +49,9 @@ function Projects() {
         }
       );
 
-      setProjects(response.data);
+      console.log(response.data);
+console.log(response.data);
+setProjects(Array.isArray(response.data) ? response.data : []);
 
     } catch (error) {
 
@@ -176,14 +178,19 @@ function Projects() {
 
   return (
 
-    <div className="flex min-h-screen bg-[#EEF2F7]">
+   <div className="flex min-h-screen bg-[#EEF2F7]">
 
-      <Sidebar />
+  <Sidebar />
 
-      <main className="flex-1 px-12 py-8 overflow-y-auto">
+ <main
+  className="overflow-y-auto bg-[#EEF2F7] p-6 md:p-8 min-h-screen"
+  style={{
+    marginLeft: "273px",
+    width: "calc(100% - 256px)",
+  }}
+>
 
-        <Header />
-
+    <Header />
         <div className="flex justify-between items-center mt-10">
 
           <div>
@@ -288,7 +295,8 @@ function Projects() {
 
               ) : (
 
-                projects.map((project) => (
+                Array.isArray(projects) &&
+projects.map((project) => (
 
                   <tr
                     key={project._id}

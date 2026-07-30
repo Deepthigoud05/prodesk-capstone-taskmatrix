@@ -30,11 +30,7 @@ function Login() {
       );
 
       localStorage.setItem("token", res.data.token);
-
-      localStorage.setItem(
-        "user",
-        JSON.stringify(res.data.user)
-      );
+      localStorage.setItem("user", JSON.stringify(res.data.user));
 
       alert("Login Successful!");
 
@@ -51,18 +47,18 @@ function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex">
-
+    <div className="flex min-h-screen bg-gray-100">
+      
       {/* Left Section */}
-      <div className="hidden md:flex w-1/2 bg-blue-700 text-white items-center justify-center">
+      <div className="hidden lg:flex w-1/2 items-center justify-center bg-gradient-to-br from-indigo-700 to-blue-600 text-white p-10">
 
-        <div className="text-center">
+        <div className="max-w-md text-center">
 
-          <h1 className="text-5xl font-bold mb-4">
+          <h1 className="text-5xl font-bold">
             TaskMatrix
           </h1>
 
-          <p className="text-lg">
+          <p className="mt-6 text-lg leading-8 text-indigo-100">
             Plan • Collaborate • Deliver
           </p>
 
@@ -72,15 +68,15 @@ function Login() {
 
       {/* Right Section */}
 
-      <div className="w-full md:w-1/2 flex items-center justify-center">
+      <div className="flex w-full items-center justify-center px-6 py-10 lg:w-1/2">
 
-        <div className="bg-white shadow-lg rounded-xl p-10 w-96">
+        <div className="w-full max-w-md rounded-2xl bg-white p-8 shadow-xl md:p-10">
 
-          <h2 className="text-3xl font-bold text-center mb-8">
+          <h2 className="mb-8 text-center text-3xl font-bold text-gray-800">
             Login
           </h2>
 
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} className="space-y-5">
 
             <input
               type="email"
@@ -88,7 +84,7 @@ function Login() {
               placeholder="Email"
               value={formData.email}
               onChange={handleChange}
-              className="w-full border rounded-lg p-3 mb-4"
+              className="w-full rounded-xl border border-gray-300 p-3 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
               required
             />
 
@@ -98,25 +94,25 @@ function Login() {
               placeholder="Password"
               value={formData.password}
               onChange={handleChange}
-              className="w-full border rounded-lg p-3 mb-6"
+              className="w-full rounded-xl border border-gray-300 p-3 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
               required
             />
 
             <button
               type="submit"
-              className="w-full bg-blue-700 text-white rounded-lg p-3 hover:bg-blue-800"
+              className="w-full rounded-xl bg-indigo-600 p-3 font-semibold text-white transition hover:bg-indigo-700"
             >
               Login
             </button>
 
           </form>
 
-          <p className="text-center mt-6">
+          <p className="mt-6 text-center text-gray-600">
             Don't have an account?{" "}
 
             <Link
               to="/register"
-              className="text-blue-700 font-semibold"
+              className="font-semibold text-indigo-600 hover:underline"
             >
               Register
             </Link>

@@ -34,7 +34,13 @@ const user = JSON.parse(localStorage.getItem("user"));
 
       <Sidebar />
 
-      <main className="flex-1 overflow-y-auto pt-20 lg:pt-0 p-4 sm:p-6 lg:p-8">
+ <main
+  className="overflow-y-auto bg-[#EEF2F7] p-6 md:p-8 min-h-screen"
+  style={{
+    marginLeft: "273px",
+    width: "calc(100% - 256px)",
+  }}
+>
 
         <Header />
 <Link
@@ -57,8 +63,7 @@ const user = JSON.parse(localStorage.getItem("user"));
 
         {/* Statistics */}
 
-       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 mt-10">
-
+       <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-4">
           <StatCard
             title="Total Projects"
             value="12"
@@ -91,11 +96,11 @@ const user = JSON.parse(localStorage.getItem("user"));
 <br></br>
         {/* Analytics */}
 
-        <div className="grid grid-cols-1 xl:grid-cols-12 gap-6 mt-12">
+        <div className="mt-12 grid grid-cols-1 gap-8 xl:grid-cols-12 items-stretch">
 
           {/* Project Analytics */}
 
-          <div className="xl:col-span-4 bg-white rounded-3xl shadow-md p-8">
+          <div className="xl:col-span-4 rounded-3xl bg-white p-8 shadow-lg transition-all duration-300 hover:shadow-xl">
 
             <h2 className="text-base font-bold text-gray-700 mb-6">
               Project Analytics
@@ -107,9 +112,9 @@ const user = JSON.parse(localStorage.getItem("user"));
 
           {/* Project Status */}
 
-          <div className="xl:col-span-8 rounded-3xl bg-gradient-to-r from-[#2563EB] to-[#1D4ED8] p-8 text-white shadow-md">
+          <div className="xl:col-span-8 rounded-3xl bg-gradient-to-r from-[#2563EB] to-[#1D4ED8] p-8 text-white shadow-xl transition-all duration-300 hover:shadow-2xl">
 
-            <h2 className="text-3x1 font-bold">
+            <h2 className="text-3xl font-bold">
                    Project Status
             </h2>
 
@@ -165,22 +170,22 @@ const user = JSON.parse(localStorage.getItem("user"));
           </div>
 
         </div>
-  <br></br>
+  
        {/* Dashboard Content */}
 
 <div className="grid grid-cols-1 xl:grid-cols-12 gap-8 mt-10 items-start">
 
   {/* Recent Projects */}
 
-  <div className="xl:col-span-8 bg-white rounded-3xl shadow-xl p-8 min-h-[280px]">
+  <div className="xl:col-span-8 rounded-3xl bg-white p-8 shadow-lg transition-all duration-300 hover:shadow-xl">
 
-    <div className="flex items-center justify-between mb-8">
+    <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
 
       <h2 className="text-2xl font-bold text-gray-700">
         Recent Projects
       </h2>
 
-      <button className="text-indigo-600 font-semibold hover:underline">
+      <button className="rounded-lg border border-indigo-100 px-4 py-2 font-semibold text-indigo-600 transition hover:bg-indigo-50">
         View All
       </button>
 
@@ -210,8 +215,8 @@ const user = JSON.parse(localStorage.getItem("user"));
 
       </div>
 
-      <div className="w-full h-3 bg-gray-200 rounded-full">
-        <div className="w-3/4 h-3 rounded-full bg-indigo-600"></div>
+  <div className="mt-3 h-3 w-full overflow-hidden rounded-full bg-gray-200">
+        <div className="h-full rounded-full bg-indigo-600 transition-all duration-500 w-3/4"></div>
       </div>
 
     </div>
@@ -240,8 +245,8 @@ const user = JSON.parse(localStorage.getItem("user"));
 
       </div>
 
-      <div className="w-full h-3 bg-gray-200 rounded-full">
-        <div className="w-3/5 h-3 rounded-full bg-green-500"></div>
+      <div className="mt-3 h-3 w-full overflow-hidden rounded-full bg-gray-200">
+       <div className="h-full rounded-full bg-green-500 transition-all duration-500 w-3/5"></div>
       </div>
 
     </div>
@@ -270,8 +275,8 @@ const user = JSON.parse(localStorage.getItem("user"));
 
       </div>
 
-      <div className="w-full h-3 bg-gray-200 rounded-full">
-        <div className="w-[45%] h-3 rounded-full bg-yellow-400"></div>
+  <div className="mt-3 h-3 w-full overflow-hidden rounded-full bg-gray-200">
+        <div className="h-full rounded-full bg-yellow-400 transition-all duration-500 w-[45%]"></div>
       </div>
 
     </div>
@@ -280,7 +285,7 @@ const user = JSON.parse(localStorage.getItem("user"));
 
   {/* Team Members */}
 
-  <div className="xl:col-span-4 bg-white rounded-3xl shadow-md p-8 min-h-[420px]">
+  <div className="xl:col-span-4 rounded-3xl bg-white p-8 shadow-lg transition-all duration-300 hover:shadow-xl">
 
     <h2 className="text-2xl font-bold text-gray-700 mb-8">
       Team Members
@@ -293,7 +298,7 @@ const user = JSON.parse(localStorage.getItem("user"));
         <img
           src={profile}
           alt="Deepthi"
-          className="w-14 h-14 rounded-full"
+          className="h-14 w-14 rounded-full border-2 border-indigo-100 object-cover"
         />
 
         <div>
@@ -315,7 +320,7 @@ const user = JSON.parse(localStorage.getItem("user"));
         <img
           src={rahul}
           alt="Rahul"
-          className="w-14 h-14 rounded-full"
+          className="h-14 w-14 rounded-full border-2 border-indigo-100 object-cover"
         />
 
         <div>
@@ -337,7 +342,7 @@ const user = JSON.parse(localStorage.getItem("user"));
         <img
           src={akhil}
           alt="Akhil"
-          className="w-14 h-14 rounded-full"
+          className="h-14 w-14 rounded-full border-2 border-indigo-100 object-cover"
         />
 
         <div>
@@ -354,7 +359,7 @@ const user = JSON.parse(localStorage.getItem("user"));
 
       </div>
 
-      <div className="mt-8 rounded-2xl bg-[#EEF2F7] p-5">
+      <div className="mt-8 rounded-2xl border border-indigo-100 bg-[#EEF2F7] p-6 shadow-sm">
 
         <h3 className="font-semibold text-gray-700">
           Team Performance
@@ -382,15 +387,15 @@ const user = JSON.parse(localStorage.getItem("user"));
 
   {/* Recent Activity */}
 
-  <div className="bg-white rounded-2xl shadow-md p-8">
+  <div className="rounded-3xl bg-white p-8 shadow-lg transition-all duration-300 hover:shadow-xl">
 
-    <div className="flex items-center justify-between mb-8">
+    <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
 
       <h2 className="text-2xl font-bold text-gray-700">
         Recent Activity
       </h2>
 
-      <button className="text-indigo-600 font-semibold hover:underline">
+      <button className="rounded-lg border border-indigo-100 px-4 py-2 font-semibold text-indigo-600 transition hover:bg-indigo-50">
         View All
       </button>
 
@@ -398,7 +403,7 @@ const user = JSON.parse(localStorage.getItem("user"));
 
     <div className="space-y-6">
 
-      <div className="flex gap-4">
+      <div className="flex items-start gap-4 rounded-xl p-3 transition hover:bg-gray-50">
 
         <div className="w-3 rounded-full bg-indigo-600"></div>
 
@@ -475,13 +480,13 @@ const user = JSON.parse(localStorage.getItem("user"));
   </div>
   {/* Calendar */}
 
-  <div className="bg-white rounded-3xl shadow-md p-6 md:p-8">
+  <div className="rounded-3xl bg-white p-6 md:p-8 shadow-lg transition-all duration-300 hover:shadow-xl">
 
     <h2 className="text-xl md:text-2xl font-bold text-gray-700 mb-6">
       Calendar
     </h2>
 
-    <div className="overflow-x-auto flex justify-center">
+    <div className="mt-2 flex justify-center overflow-x-auto">
       <Calendar />
     </div>
 
@@ -493,7 +498,7 @@ const user = JSON.parse(localStorage.getItem("user"));
 
       <div className="space-y-5">
 
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+       <div className="flex flex-col gap-4 rounded-xl border border-gray-100 p-4 transition hover:border-indigo-200 hover:bg-indigo-50 sm:flex-row sm:items-center sm:justify-between">
 
           <div>
 
@@ -513,7 +518,7 @@ const user = JSON.parse(localStorage.getItem("user"));
 
         </div>
 
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+        <div className="flex flex-col gap-4 rounded-xl border border-gray-100 p-4 transition hover:border-indigo-200 hover:bg-indigo-50 sm:flex-row sm:items-center sm:justify-between">
 
           <div>
 
@@ -533,7 +538,7 @@ const user = JSON.parse(localStorage.getItem("user"));
 
         </div>
 
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+        <div className="flex flex-col gap-4 rounded-xl border border-gray-100 p-4 transition hover:border-indigo-200 hover:bg-indigo-50 sm:flex-row sm:items-center sm:justify-between">
 
           <div>
 
@@ -563,7 +568,7 @@ const user = JSON.parse(localStorage.getItem("user"));
 
 {/* Upgrade Banner */}
 
-<div className="mt-10 rounded-3xl bg-gradient-to-r from-indigo-600 to-blue-600 p-6 md:p-8 text-white shadow-xl">
+<div className="mt-10 rounded-3xl bg-gradient-to-r from-indigo-600 via-blue-600 to-cyan-600 p-8 text-white shadow-2xl">
 
   <h2 className="text-2xl md:text-3xl font-bold">
     Upgrade to TaskMatrix Pro

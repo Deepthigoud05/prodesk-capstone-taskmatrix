@@ -207,7 +207,13 @@ function Kanban() {
 
       <Sidebar />
 
-      <main className="flex-1 overflow-y-auto pt-20 lg:pt-0 p-4 sm:p-6 lg:p-8">
+      <main
+  className="overflow-y-auto bg-[#EEF2F7] p-6 md:p-8 min-h-screen"
+  style={{
+    marginLeft: "273px",
+    width: "calc(100% - 256px)",
+  }}
+>
         <Header />
 
         <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-6 mt-8">

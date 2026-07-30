@@ -11,7 +11,6 @@ import {
   MdMenu,
   MdClose,
 } from "react-icons/md";
-
 import { Link, useLocation } from "react-router-dom";
 
 function Sidebar() {
@@ -61,7 +60,7 @@ function Sidebar() {
       {/* Mobile Menu Button */}
       <button
         onClick={() => setOpen(true)}
-        className="lg:hidden fixed top-5 left-5 z-50 bg-[#5B5CEB] text-white p-3 rounded-xl shadow-lg"
+        className="fixed top-5 left-5 z-50 rounded-xl bg-indigo-600 p-3 text-white shadow-lg lg:hidden"
       >
         <MdMenu size={24} />
       </button>
@@ -69,7 +68,7 @@ function Sidebar() {
       {/* Overlay */}
       {open && (
         <div
-          className="fixed inset-0 bg-black/40 z-40 lg:hidden"
+          className="fixed inset-0 z-40 bg-black/50 lg:hidden"
           onClick={() => setOpen(false)}
         />
       )}
@@ -77,13 +76,15 @@ function Sidebar() {
       {/* Sidebar */}
       <aside
         className={`
-          fixed lg:static
-          top-0 left-0
+          fixed
+          top-0
+          left-0
           z-50
-          w-64
           h-screen
+          w-64
           bg-[#1F2937]
           text-white
+          shadow-2xl
           flex
           flex-col
           transition-transform
@@ -95,49 +96,48 @@ function Sidebar() {
           }
         `}
       >
-        {/* Header */}
-        <div className="flex items-center justify-between px-8 py-8 border-b border-gray-700">
+        {/* Logo */}
+        <div className="flex items-center justify-between border-b border-gray-700 px-6 py-6">
 
-          <h1 className="text-3xl font-bold tracking-wide">
+          <h1 className="text-2xl font-bold tracking-wide">
             TaskMatrix
           </h1>
 
           <button
-            onClick={() => setOpen(false)}
             className="lg:hidden"
+            onClick={() => setOpen(false)}
           >
             <MdClose size={28} />
           </button>
 
         </div>
 
-        {/* Menu */}
-        <div className="flex-1 mt-6 overflow-y-auto">
+        {/* Navigation */}
+        <nav className="flex-1 overflow-y-auto py-6">
 
           {menu.map((item) => (
-
             <Link
               key={item.title}
               to={item.path}
               onClick={() => setOpen(false)}
-              className={`flex items-center gap-4 px-8 py-4 text-lg transition-all duration-200 rounded-r-full mr-4 ${
+              className={`mx-3 mb-2 flex items-center gap-4 rounded-xl px-5 py-4 transition-all duration-300 ${
                 location.pathname === item.path
-                  ? "bg-[#5B5CEB] text-white"
-                  : "hover:bg-[#374151]"
+                  ? "bg-indigo-600 shadow-lg"
+                  : "hover:bg-gray-700"
               }`}
             >
               {item.icon}
 
-              <span>{item.title}</span>
-
+              <span className="font-medium">
+                {item.title}
+              </span>
             </Link>
-
           ))}
 
-        </div>
+        </nav>
 
         {/* Logout */}
-        <div className="border-t border-gray-700">
+        <div className="border-t border-gray-700 p-4">
 
           <button
             onClick={() => {
@@ -145,7 +145,7 @@ function Sidebar() {
               localStorage.removeItem("user");
               window.location.href = "/";
             }}
-            className="w-full flex items-center gap-4 px-8 py-6 text-red-300 hover:bg-[#374151] hover:text-red-400 transition"
+            className="flex w-full items-center gap-4 rounded-xl px-5 py-4 text-red-300 transition hover:bg-gray-700 hover:text-red-400"
           >
             <MdLogout size={22} />
 

@@ -16,7 +16,13 @@ function TaskDetails() {
 
       <Sidebar />
 
-      <main className="flex-1 overflow-y-auto pt-20 lg:pt-0 p-4 sm:p-6 lg:p-8">
+     <main
+  className="overflow-y-auto bg-[#EEF2F7] p-6 md:p-8 min-h-screen"
+  style={{
+    marginLeft: "273px",
+    width: "calc(100% - 256px)",
+  }}
+>
 
         <div className="px-8 xl:px-12 py-8">
 

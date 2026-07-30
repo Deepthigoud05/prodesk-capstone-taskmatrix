@@ -16,9 +16,16 @@ function Profile() {
 
       <Sidebar />
 
-      <main className="flex-1 px-12 py-8 overflow-y-auto">
+<main
+  className="overflow-y-auto bg-[#EEF2F7] p-6 md:p-8 min-h-screen"
+  style={{
+   marginLeft: "256px",
+    width: "calc(100% - 256px)",
+  }}
+>
 
-        <Header />
+  <Header />
+
 
         {/* Header */}
 
@@ -45,7 +52,7 @@ function Profile() {
           </button>
 
         </div>
-<br></br>
+
         {/* Profile Card */}
 
         <div className="bg-white rounded-3xl shadow-lg p-10 mt-10">
@@ -171,7 +178,7 @@ function Profile() {
               </div>
 
             </div>
-<br></br>
+
             {/* Right Information */}
 
             <div>
@@ -192,7 +199,7 @@ function Profile() {
                 </p>
 
               </div>
-<br></br>
+
               <div className="bg-[#F8F9FC] rounded-2xl p-6 mt-6">
 
                 <h3 className="text-xl font-bold text-gray-700">
@@ -234,7 +241,7 @@ function Profile() {
           </div>
           
                   </div>
-<br></br>
+
         {/* Statistics */}
 
         <div className="grid grid-cols-3 gap-8 mt-10">
@@ -276,7 +283,7 @@ function Profile() {
           </div>
 
         </div>
-<br></br>
+
         {/* Recent Activity */}
 
         <div className="bg-white rounded-3xl shadow-md p-8 mt-10">
@@ -284,7 +291,7 @@ function Profile() {
           <h2 className="text-2xl font-bold text-gray-700">
             Recent Activity
           </h2>
-<br></br>
+
           <div className="mt-8 space-y-6">
 
             <div className="border-l-4 border-[#5B5CEB] pl-5">
