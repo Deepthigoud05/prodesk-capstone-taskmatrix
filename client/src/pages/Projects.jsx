@@ -1,3 +1,4 @@
+import API_URL from "../config/api";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -41,7 +42,7 @@ function Projects() {
       const token = localStorage.getItem("token");
 
       const response = await axios.get(
-        "http://localhost:5000/api/projects",
+        `${API_URL}/api/projects`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -78,7 +79,7 @@ setProjects(Array.isArray(response.data) ? response.data : []);
       if (editingId) {
 
         await axios.put(
-          `http://localhost:5000/api/projects/${editingId}`,
+          `${API_URL}/api/projects/${editingId}`,
           projectData,
           {
             headers: {
@@ -88,16 +89,15 @@ setProjects(Array.isArray(response.data) ? response.data : []);
         );
 
       } else {
-
-        await axios.post(
-          "http://localhost:5000/api/projects",
-          projectData,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+await axios.post(
+  `${API_URL}/api/projects`,
+  taskData,
+  {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }
+);
 
       }
 
@@ -156,7 +156,7 @@ setProjects(Array.isArray(response.data) ? response.data : []);
       const token = localStorage.getItem("token");
 
       await axios.delete(
-        `http://localhost:5000/api/projects/${id}`,
+        `${API_URL}/api/projects/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

@@ -1,3 +1,4 @@
+import API_URL from "../config/api";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -48,7 +49,7 @@ function Kanban() {
       const token = localStorage.getItem("token");
 
       const response = await axios.get(
-        "http://localhost:5000/api/tasks",
+        `${API_URL}/api/tasks`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -83,7 +84,7 @@ function Kanban() {
       if (editingId) {
 
         await axios.put(
-          `http://localhost:5000/api/tasks/${editingId}`,
+         `${API_URL}/api/tasks/${editingId}`,
           taskData,
           {
             headers: {
@@ -95,14 +96,14 @@ function Kanban() {
       } else {
 
         await axios.post(
-          "http://localhost:5000/api/tasks",
-          taskData,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+  `${API_URL}/api/tasks`,
+  taskData,
+  {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }
+);
 
       }
 
@@ -169,7 +170,7 @@ function Kanban() {
     const token = localStorage.getItem("token");
 
     await axios.delete(
-      `http://localhost:5000/api/tasks/${id}`,
+      `${API_URL}/api/tasks/${id}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
