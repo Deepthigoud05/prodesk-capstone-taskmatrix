@@ -29,22 +29,23 @@ const handleSubmit = async (e) => {
       `${API_URL}/api/auth/register`,
       {
         name: "Test User",
-        email: "test123@gmail.com",
+        email: `test${Date.now()}@gmail.com`,
         password: "123456",
       }
     );
 
+    alert("SUCCESS");
     console.log(response.data);
-    alert("Success");
-  }  catch (error) {
-  console.log("========== ERROR ==========");
-  console.log("Message:", error.message);
-  console.log("Status:", error.response?.status);
-  console.log("Data:", error.response?.data);
-  console.log(error);
 
-  alert(error.message);
-}
+  } catch (error) {
+    alert("ERROR");
+
+    console.log("Message:", error.message);
+    console.log("Status:", error.response?.status);
+    console.log("Data:", error.response?.data);
+    console.log("Error:", error);
+  }
+
 };
 
   return (
