@@ -22,31 +22,47 @@ function Register() {
 const handleSubmit = async (e) => {
   e.preventDefault();
 
-  alert("handleSubmit is running");
+  if (formData.password !== formData.confirmPassword) {
+    alert("Passwords do not match");
+    return;
+  }
 
   try {
     const response = await axios.post(
-  `${API_URL}/api/auth/register`,
-  {
-    name: formData.name,
-    email: formData.email,
-    password: formData.password,
-  }
-);
-    
+      `${API_URL}/api/auth/register`,
+      {
+        name: formData.name,
+        email: formData.email,
+        password: formData.password,
+      }
+    );
 
-    alert("SUCCESS");
-    console.log(response.data);
+    localStorage.setItem("token", response.data.token);
+
+    localStorage.setItem(
+      "user",
+      JSON.stringify(response.data.user)
+    );
+
+    alert("Registration Successful!");
+
+    setFormData({
+      name: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    });
+
+    navigate("/dashboard");
 
   } catch (error) {
-    alert("ERROR");
+    console.error("Registration Error:", error);
 
-    console.log("Message:", error.message);
-    console.log("Status:", error.response?.status);
-    console.log("Data:", error.response?.data);
-    console.log("Error:", error);
+    alert(
+      error.response?.data?.message ||
+      "Registration Failed"
+    );
   }
-
 };
 
   return (
