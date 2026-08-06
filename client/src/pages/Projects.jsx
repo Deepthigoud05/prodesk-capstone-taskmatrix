@@ -35,32 +35,31 @@ function Projects() {
     fetchProjects();
   }, []);
 
-  const fetchProjects = async () => {
+const fetchProjects = async () => {
+  try {
+    const token = localStorage.getItem("token");
 
-    try {
+    const response = await axios.get(
+      `${API_URL}/api/projects`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
-      const token = localStorage.getItem("token");
-
-      const response = await axios.get(
-        `${API_URL}/api/projects`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      console.log(response.data);
-console.log(response.data);
-setProjects(Array.isArray(response.data) ? response.data : []);
-
-    } catch (error) {
-
-      console.error(error);
-
+    if (response.data.success) {
+      setProjects(response.data.data);
+    } else {
+      setProjects([]);
     }
 
-  };
+  } catch (error) {
+    console.error(error);
+    setProjects([]);
+  }
+};
+  
 
   const handleChange = (e) => {
 
@@ -70,61 +69,59 @@ setProjects(Array.isArray(response.data) ? response.data : []);
     });
 
   };
-    const createProject = async () => {
+    
+const createProject = async () => {
+  try {
+    const token = localStorage.getItem("token");
 
-    try {
+    if (editingId) {
+      await axios.put(
+        `${API_URL}/api/projects/${editingId}`,
+        projectData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+    } else {
+      const response = await axios.post(
+        `${API_URL}/api/projects`,
+        projectData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
-      const token = localStorage.getItem("token");
-
-      if (editingId) {
-
-        await axios.put(
-          `${API_URL}/api/projects/${editingId}`,
-          projectData,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-
-      } else {
-await axios.post(
-  `${API_URL}/api/projects`,
-  taskData,
-  {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  }
-);
-
-      }
-
-      fetchProjects();
-
-      setShowModal(false);
-
-      setEditingId(null);
-
-      setProjectData({
-        title: "",
-        description: "",
-        status: "Active",
-        progress: 0,
-        dueDate: "",
-      });
-
-    } catch (error) {
-
-      console.error(error);
-
-      alert("Unable to save project.");
-
+      console.log("Project Created:", response.data);
     }
 
-  };
+    await fetchProjects();
 
+    setShowModal(false);
+    setEditingId(null);
+
+    setProjectData({
+      title: "",
+      description: "",
+      status: "Active",
+      progress: 0,
+      dueDate: "",
+    });
+
+  } catch (error) {
+    console.log("STATUS:", error.response?.status);
+    console.log("DATA:", error.response?.data);
+    console.log(error);
+
+    alert(
+      error.response?.data?.message ||
+      "Unable to save project."
+    );
+  }
+};
   const editProject = (project) => {
 
     setEditingId(project._id);

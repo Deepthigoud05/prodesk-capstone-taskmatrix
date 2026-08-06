@@ -27,42 +27,51 @@ function Register() {
       return;
     }
 
-    try {
-      const response = await axios.post(
-        `${API_URL}/api/auth/register`,
-        {
-          name: formData.name,
-          email: formData.email,
-          password: formData.password,
-        }
-      );
+   try {
+  console.log("API URL:", `${API_URL}/api/auth/register`);
+  console.log("Request Data:", {
+    name: formData.name,
+    email: formData.email,
+    password: formData.password,
+  });
 
-      localStorage.setItem("token", response.data.token);
-
-      localStorage.setItem(
-        "user",
-        JSON.stringify(response.data.user)
-      );
-
-      alert("Registration Successful!");
-
-      setFormData({
-        name: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
-      });
-
-      navigate("/dashboard");
-
-    } catch (error) {
-      console.error(error);
-
-      alert(
-        error.response?.data?.message ||
-        "Registration Failed"
-      );
+  const response = await axios.post(
+    `${API_URL}/api/auth/register`,
+    {
+      name: formData.name,
+      email: formData.email,
+      password: formData.password,
     }
+  );
+
+  console.log("Response:", response.data);
+
+  localStorage.setItem("token", response.data.token);
+
+  localStorage.setItem(
+    "user",
+    JSON.stringify(response.data.user)
+  );
+
+  alert("Registration Successful!");
+
+  setFormData({
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+
+  navigate("/dashboard");
+
+} catch (error) {
+  console.log("URL:", `${API_URL}/api/auth/register`);
+  console.log("Status:", error.response?.status);
+  console.log("Response:", error.response?.data);
+  console.log("Error:", error);
+
+  alert(`Status: ${error.response?.status}`);
+}
   };
 
   return (
