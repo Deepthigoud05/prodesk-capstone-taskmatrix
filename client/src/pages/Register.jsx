@@ -19,60 +19,33 @@ function Register() {
     });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    if (formData.password !== formData.confirmPassword) {
-      alert("Passwords do not match");
-      return;
-    }
+  alert("handleSubmit is running");
 
-   try {
-  console.log("API URL:", `${API_URL}/api/auth/register`);
-  console.log("Request Data:", {
-    name: formData.name,
-    email: formData.email,
-    password: formData.password,
-  });
+  try {
+    const response = await axios.post(
+      `${API_URL}/api/auth/register`,
+      {
+        name: "Test User",
+        email: "test123@gmail.com",
+        password: "123456",
+      }
+    );
 
-  const response = await axios.post(
-    `${API_URL}/api/auth/register`,
-    {
-      name: formData.name,
-      email: formData.email,
-      password: formData.password,
-    }
-  );
-
-  console.log("Response:", response.data);
-
-  localStorage.setItem("token", response.data.token);
-
-  localStorage.setItem(
-    "user",
-    JSON.stringify(response.data.user)
-  );
-
-  alert("Registration Successful!");
-
-  setFormData({
-    name: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-  });
-
-  navigate("/dashboard");
-
-} catch (error) {
-  console.log("URL:", `${API_URL}/api/auth/register`);
+    console.log(response.data);
+    alert("Success");
+  }  catch (error) {
+  console.log("========== ERROR ==========");
+  console.log("Message:", error.message);
   console.log("Status:", error.response?.status);
-  console.log("Response:", error.response?.data);
-  console.log("Error:", error);
+  console.log("Data:", error.response?.data);
+  console.log(error);
 
-  alert(`Status: ${error.response?.status}`);
+  alert(error.message);
 }
-  };
+};
 
   return (
     <div className="min-h-screen flex bg-[#EEF2F7]">
