@@ -26,13 +26,14 @@ const handleSubmit = async (e) => {
 
   try {
     const response = await axios.post(
-      `${API_URL}/api/auth/register`,
-      {
-        name: "Test User",
-        email: `test${Date.now()}@gmail.com`,
-        password: "123456",
-      }
-    );
+  `${API_URL}/api/auth/register`,
+  {
+    name: formData.name,
+    email: formData.email,
+    password: formData.password,
+  }
+);
+    
 
     alert("SUCCESS");
     console.log(response.data);
